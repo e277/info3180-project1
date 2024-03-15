@@ -9,6 +9,7 @@ from app import app, db
 from flask import render_template, request, redirect, url_for, flash, send_from_directory
 from werkzeug.utils import secure_filename
 from app.forms import AddNewProperty
+from app.models import Property
 
 
 ###
@@ -25,6 +26,30 @@ def home():
 def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
+
+@app.route('/properties/create', methods=['GET', 'POST'])
+def new_property():
+    form = AddNewProperty()
+    if form.validate_on_submit():
+        title = form.title.data
+        description = form.description.data
+        noOfRooms = form.noOfRooms.data
+        noOfBathrooms = form.noOfBathrooms.data
+        price = form.price.data
+        propertyType = form.propertyType.data
+        location = form.location.data
+        photo = form.photo.data
+        filename = secure_filename(photo.filename)
+        photo.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
+        
+        # store the form data in a database
+        db.session.add(Property(title, description, noOfRooms, noOfBathrooms, price, propertyType, location, filename))
+        db.session.commit()
+        
+        flash('Property successfully added', 'success')
+        return redirect(url_for('new_property'))
+    flash_errors(form)
+    return render_template('new_property.html', form=form)
 
 
 ###
