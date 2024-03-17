@@ -3,32 +3,43 @@
 {% block css %}{% endblock %}
 
 {% block main %}
-    <div>
-        <h1>Property Details</h1>
 
-        {% include 'flash_messages.html' %}
+    <h1>Property Details</h1>
 
-        <div class="row">
-            <!-- Image on the left -->
-            <div class="col-lg-6">
-                <div class="view overlay">
-                    <img class="img-fluid" src="{{ property.photo }}" alt="{{ property.title }}">
-                </div>
-            </div>
+    {% include 'flash_messages.html' %}
 
-            <!-- Text on the right -->
-            <div class="col-lg-6">
-                <h2>{{ property.title }}</h2>
-                <p>{{ property.description }}</p>
-                <p>Bedrooms: {{ property.noOfRooms }}</p>
-                <p>Bathrooms: {{ property.noOfBathrooms }}</p>
-                <p>Location: {{ property.location }}</p>
-                <p>Price: {{ property.price }}</p>
-                <p>Type: {{ property.propertyType }}</p>
-                <a href="mailto:realtor@example.com" class="btn btn-primary">Email Realtor</a>
+    <div class="row">
+        <!-- Image on the left -->
+        <div class="col-lg-6">
+            <div class="view overlay">
+                <img class="img-fluid" src="{{ property.photo }}" alt="{{ property.title }}">
             </div>
         </div>
+
+        <!-- Text on the right -->
+        <div class="col-lg-6">
+            <h2 class="card-title">{{ property.title }}</h2>
+            <div class="price-type">
+                <span class="price2">${{ property.price }}</span>
+                <span class="type">{{ property.propertyType }}</span>
+            </div>
+            <p>{{ property.description }}</p>
+            <span>
+                <img src="{{ url_for('static', filename='bed.png') }}" alt="Bed" class="icon">
+                {{ property.noOfRooms }} Bedrooms
+            </span>
+            <span>
+                <img src="{{ url_for('static', filename='shower.png') }}" alt="Bath" class="icon">
+                {{ property.noOfBathrooms }} Bathrooms
+            </span>
+            <p class="location">
+                <img src="{{ url_for('static', filename='location.png') }}" alt="Location" class="icon">
+                {{ property.location }}
+            </p>
+            <a href="#?" class="btn btn-primary btn-color">Email Realtor</a>
+        </div>
     </div>
+    
 {% endblock %}
 
 {% block js %}{% endblock %}

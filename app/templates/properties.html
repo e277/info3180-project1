@@ -27,8 +27,8 @@
                         <!--Title-->
                         <h4 class="card-title">{{ property.title }}</h4>
                         <!--Text-->
-                        <p class="card-text location">
-                            <img src="{{ url_for('static', filename='location.png') }}" alt="location" class="">
+                        <p class="card-text">
+                            <img src="{{ url_for('static', filename='location.png') }}" alt="location" class="icon">
                             {{ property.location }}
                         </p>
                         <p class="card-text price">${{ property.price }}</p>
