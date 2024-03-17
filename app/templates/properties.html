@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block css %}{% endblock %}
+
+{% block main %}
+    <div>
+        <h1>Properties</h1>
+
+        {% include 'flash_messages.html' %}
+
+        <div class="row">
+            {% for property in properties %}
+                <div class="col-lg-4 mb-4">
+                    <!-- Card -->
+                    <div class="card">
+                
+                        <!--Card image-->
+                        <div class="view overlay">
+                            <img class="card-img-top" src="{{ property.photo }}" alt="{{ property.title }}">
+                            <a href="{{ url_for('property', propertyid=property.id) }}">
+                                <div class="mask rgba-white-slight"></div>
+                            </a>
+                        </div>
+                
+                        <!--Card content-->
+                        <div class="card-body">
+                            <!--Title-->
+                            <h4 class="card-title">{{ property.title }}</h4>
+                            <!--Text-->
+                            <p class="card-text">{{ property.location }}</p>
+                            <p class="card-text">${{ property.price }}</p>
+                            <!-- Provides extra visual weight and identifies the primary action in a set of buttons -->
+                            <a href="{{ url_for('property', propertyid=property.id) }}" class="btn btn-light-blue btn-md">View Property</a>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+            {% if properties|length == 0 %}
+                <p>No properties found</p>
+            {% endif %}
+        </div>
+    </div>
+{% endblock %}
+
+{% block js %}{% endblock %}
