@@ -8,7 +8,7 @@ import os
 from app import app, db
 from flask import render_template, request, redirect, url_for, flash, send_from_directory
 from werkzeug.utils import secure_filename
-from app.forms import AddNewProperty
+from app.forms import PropertyForm
 from app.models import Property
 
 
@@ -27,9 +27,11 @@ def about():
     """Render the website's about page."""
     return render_template('about.html', name="Mary Jane")
 
+
+
 @app.route('/properties/create', methods=['GET', 'POST'])
-def new_property():
-    form = AddNewProperty()
+def create_property():
+    form = PropertyForm()
     if form.validate_on_submit():
         title = form.title.data
         description = form.description.data
@@ -47,9 +49,48 @@ def new_property():
         db.session.commit()
         
         flash('Property successfully added', 'success')
-        return redirect(url_for('new_property'))
+        return redirect(url_for('properties'))
+    
     flash_errors(form)
-    return render_template('new_property.html', form=form)
+    return render_template('create_property.html', form=form)
+
+@app.route('/properties')
+def properties():
+    properties = Property.query.all()
+    # fetch the photo for each property from the uploads folder
+    # check that the photo name from the database is in the uploads folder using the get_uploaded_images function
+    images = get_uploaded_images()
+    for property in properties:
+        if property.photo in images:
+            property.photo = url_for('uploaded_file', filename=property.photo)
+    return render_template('properties.html', properties=properties) 
+
+
+@app.route('/uploads/<filename>')
+def uploaded_file(filename):
+    return send_from_directory(os.path.join(os.getcwd(), app.config['UPLOAD_FOLDER']), filename)
+
+@app.route('/properties/<int:propertyid>')
+def property(propertyid):
+    property = Property.query.filter_by(id=propertyid).first()
+    property.photo = url_for('uploaded_file', filename=property.photo)
+    return render_template('property.html', property=property)
+
+
+def get_uploaded_images():
+    rootdir = os.getcwd()
+    # print(rootdir)
+    image_list = []
+    for subdir, dirs, files in os.walk(os.path.join(rootdir, app.config['UPLOAD_FOLDER'])):
+        for file in files:
+            # print(os.path.join(subdir, file))
+            if file.endswith(('.jpg', '.png', '.jpeg')):
+                full_path = os.path.join(subdir, file)
+                relative_path = os.path.relpath(full_path, os.path.join(rootdir, app.config['UPLOAD_FOLDER']))
+                image_list.append(relative_path)
+    return image_list
+
+
 
 
 ###
