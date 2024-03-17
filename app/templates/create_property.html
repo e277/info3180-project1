@@ -3,54 +3,54 @@
 {% block css %}{% endblock %}
 
 {% block main %}
-    <div>
-        <h1>Add New Property</h1>
 
-        {% include 'flash_messages.html' %}
+    <h1>Add New Property</h1>
 
-        <form action="{{ url_for('create_property') }}" method="POST" enctype="multipart/form-data">
-            {{ form.csrf_token }}
-           
-            <div class="form-group">
-                {{ form.title.label() }}
-                {{ form.title(class="form-control", placeholder="Enter Title") }}
-            </div>
-            <div class="form-group">
-                {{ form.description.label() }}
-                {{ form.description(class="form-control", placeholder="Enter Description") }}
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    {{ form.noOfRooms.label() }}
-                    {{ form.noOfRooms(class="form-control", placeholder="Enter No. of Rooms") }}
-                </div>
-                <div class="form-group col-md-6">
-                    {{ form.noOfBathrooms.label() }}
-                    {{ form.noOfBathrooms(class="form-control", placeholder="Enter No. of Bathrooms") }}
-                </div>
-            </div>
-            <div class="row">
-                <div class="form-group col-md-6">
-                    {{ form.price.label() }}
-                    {{ form.price(class="form-control", placeholder="Enter Price") }}
-                </div>
-                <div class="form-group col-md-6">
-                    {{ form.propertyType.label() }}
-                    {{ form.propertyType(class="form-control", placeholder="Enter Property Type") }}
-                </div>
+    {% include 'flash_messages.html' %}
+
+    <form action="{{ url_for('create_property') }}" method="POST" enctype="multipart/form-data">
+        {{ form.csrf_token }}
+        
+        <div class="form-group">
+            {{ form.title.label() }}
+            {{ form.title(class="form-control", placeholder="Enter Title") }}
+        </div>
+        <div class="form-group">
+            {{ form.description.label() }}
+            {{ form.description(class="form-control", placeholder="Enter Description") }}
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                {{ form.noOfRooms.label() }}
+                {{ form.noOfRooms(class="form-control", placeholder="Enter No. of Rooms") }}
             </div>
             <div class="form-group col-md-6">
-                {{ form.location.label()}}
-                {{ form.location(class="form-control", placeholder="Enter Location") }}
+                {{ form.noOfBathrooms.label() }}
+                {{ form.noOfBathrooms(class="form-control", placeholder="Enter No. of Bathrooms") }}
+            </div>
+        </div>
+        <div class="row">
+            <div class="form-group col-md-6">
+                {{ form.price.label() }}
+                {{ form.price(class="form-control", placeholder="Enter Price") }}
             </div>
             <div class="form-group col-md-6">
-                {{ form.photo.label() }}
-                {{ form.photo(class="form-control", placeholder="Enter Photo") }}
+                {{ form.propertyType.label() }}
+                {{ form.propertyType(class="form-control") }}
             </div>
+        </div>
+        <div class="form-group col-md-6">
+            {{ form.location.label()}}
+            {{ form.location(class="form-control", placeholder="Enter Location") }}
+        </div>
+        <div class="form-group col-md-6">
+            {{ form.photo.label() }}
+            {{ form.photo(class="form-control") }}
+        </div>
 
-            <button type="submit" name="submit" class="btn btn-primary">Add Property</button>
-        </form>
-    </div>
+        <button type="submit" name="submit" class="btn btn-primary">Add Property</button>
+    </form>
+
 {% endblock %}
 
 {% block js %}{% endblock %}

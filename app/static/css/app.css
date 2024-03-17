@@ -1,3 +1,60 @@
 body {
     padding-top: 5rem;
 }
+
+/* Create Properties */
+h1 {
+    margin-bottom: 30px;
+}
+
+form div {
+    margin-bottom: 20px;
+}
+
+form div label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+form div textarea {
+    width: 100%;
+    height: 150px;
+}
+
+/* Properties */
+.location {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.location img {
+    width: 30px;
+}
+
+.price {
+    width: 40%;
+    text-align: center;
+    background-color: rgb(67, 161, 254);
+    color: white;
+    padding: 3px;
+    border-radius: 20px;
+    font-weight: 600;
+}
+
+.button {
+    margin: 0;
+    width: 100%;
+    background-color: rgb(2, 86, 170);
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.button:hover {
+    background-color: rgb(0, 68, 136);
+    color: white;
+}
+
